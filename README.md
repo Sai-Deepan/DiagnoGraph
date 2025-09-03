@@ -1,4 +1,4 @@
-#  DiagnoGraph: Streamlit-Based Patient Health Monitoring  
+#  DiagnoGraph: Streamlit-Based Patient Health Diagnosis Report
 
 **DiagnoGraph** is a healthcare data analysis and visualization tool designed to help doctors and patients track health trends over time. It provides **interactive Streamlit dashboards** with patient-specific records, BMI calculation, and summary-based health status classification.  
 
@@ -122,6 +122,7 @@ Monitoring health over time is critical. **DiagnoGraph** combines **data standar
 ## 2)Aadithya V
 ## 3)Viswasainath Vijayakumar
 ## 4)Deepak R
+
 
 
 
