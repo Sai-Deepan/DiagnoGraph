@@ -39,33 +39,35 @@ if 'date_recorded' in bp_data.columns:
 
 st.header("Patient Details")
 
+with st.container():
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col1:
+        st.subheader("Blood Pressure")
+        if not bp_data.empty:
+            bp_df = bp_data[['date_recorded', 'blood_pressure_systolic', 'blood_pressure_diastolic']].set_index('date_recorded')
+            st.line_chart(bp_df.rename(columns={
+                'blood_pressure_systolic': 'Systolic (mmHg)',
+                'blood_pressure_diastolic': 'Diastolic (mmHg)'
+            }))
+        else:
+            st.warning("No blood pressure data available for this patient.")
 
-st.subheader("Blood Pressure")
-if not bp_data.empty:
-    bp_df = bp_data[['date_recorded', 'blood_pressure_systolic', 'blood_pressure_diastolic']].set_index('date_recorded')
-    st.line_chart(bp_df.rename(columns={
-        'blood_pressure_systolic': 'Systolic (mmHg)',
-        'blood_pressure_diastolic': 'Diastolic (mmHg)'
-    }))
-else:
-    st.warning("No blood pressure data available for this patient.")
+    with col2:
+        st.subheader("Heart Rate")
+        if not bp_data.empty:
+            hr_df = bp_data[['date_recorded', 'heart_rate']].set_index('date_recorded')
+            st.area_chart(hr_df.rename(columns={'heart_rate': 'Heart Rate (bpm)'}))
+        else:
+            st.warning("No heart rate data available for this patient.")
 
-
-st.subheader("Heart Rate")
-if not bp_data.empty:
-    hr_df = bp_data[['date_recorded', 'heart_rate']].set_index('date_recorded')
-    st.area_chart(hr_df.rename(columns={'heart_rate': 'Heart Rate (bpm)'}))
-else:
-    st.warning("No heart rate data available for this patient.")
-
-
-st.subheader("Respiratory Rate")
-np.random.seed(42)
-resp_rate = np.random.randint(12, 25, size=15)
-resp_data = pd.DataFrame({
-    "Respiratory Rate (breaths/min)": resp_rate
-})
-st.bar_chart(resp_data)
+    with col3:
+        st.subheader("Respiratory Rate")
+        np.random.seed(42)
+        resp_rate = np.random.randint(12, 25, size=15)
+        resp_data = pd.DataFrame({
+            "Respiratory Rate (breaths/min)": resp_rate
+        })
+        st.bar_chart(resp_data)
 
 
 st.subheader("Blood Glucose")
@@ -81,7 +83,7 @@ st.divider()
 st.header("Vitals")
 if not bp_data.empty:
     hr_df = bp_data[['date_recorded', 'heart_rate']].set_index('date_recorded')
-    st.area_chart(hr_df.rename(columns={'heart_rate': 'Heart Rate (bpm)'}))
+    st.line_chart(hr_df.rename(columns={'heart_rate': 'Heart Rate (bpm)'}))
 else:
     st.warning("No heart rate data available for this patient.")
 
