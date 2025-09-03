@@ -30,7 +30,13 @@
 
 ##  Project Images  
 
- *Add screenshots of:*  
+<img width="800" height="400" alt="Screenshot 2025-09-03 053930" src="https://github.com/user-attachments/assets/a3681b30-51ab-45a3-9e1b-f762faef23c4" />
+<img width="800" height="400" alt="Screenshot 2025-09-03 053922" src="https://github.com/user-attachments/assets/e8bedd0b-e00a-441c-9961-bd66ba1a2cfb" />
+<img width="800" height="400" alt="Screenshot 2025-09-03 053908" src="https://github.com/user-attachments/assets/347e2fdf-6f1c-4f25-b91f-7b5bc1ae5731" />
+<img width="800" height="400" alt="Screenshot 2025-09-03 053854" src="https://github.com/user-attachments/assets/5b7e6939-60d3-4ee6-acbf-c871ac2f27ac" />
+<img width="800" height="400" alt="Screenshot 2025-09-03 053838" src="https://github.com/user-attachments/assets/359871c2-3e82-4831-93ca-0f39f8ed67b5" />
+<img width="800" height="400" alt="Screenshot 2025-09-03 053823" src="https://github.com/user-attachments/assets/b5604580-248c-4c54-9f09-6f26bd45bb60" />
+
 - Streamlit dashboard  
 - Patient graphs  
 - Summary report with BMI and health status  
@@ -116,6 +122,7 @@ Monitoring health over time is critical. **DiagnoGraph** combines **data standar
 ## 2)Aadithya V
 ## 3)Viswasainath Vijayakumar
 ## 4)Deepak R
+
 
 
 
