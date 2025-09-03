@@ -5,11 +5,41 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from st_circular_progress import CircularProgress
+from PIL import Image
+import base64
 
 st.set_page_config(page_title="Medical Report Dashboard", layout="wide")
 st.title("Medical Report Dashboard")
 
+def get_base64_image(image_path):
+    with open(image_path, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode()
+    return encoded_string
+
+base64_image_string = get_base64_image('bg.jpg')
+
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/jpeg;base64,{base64_image_string}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center center;
+    }}
+
+    [data-testid="stSidebar"] > div:first-child {{
+        background-color: transparent;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 with st.sidebar:
+    logo = Image.open("logo.png")
+    st.image(logo, use_container_width=True)
     st.title("Patient Details")
     patient_id = st.text_input("Enter Patient ID", value="P123456")
     patient_id = patient_id.strip()
@@ -103,15 +133,15 @@ with st.container():
         weight = round(bp_data['weight'].iloc[-1].squeeze(),2)
         weight_value = weight
 
-        st.markdown(f"<h1 style='text-align: center; color: #333333;'>{weight_value} kgs</h1>", unsafe_allow_html=True)
-        st.markdown(f"<p style='text-align: center; color: #555555;'>Current Weight</p>", unsafe_allow_html=True)
+        st.markdown(f"<h1 style='text-align: center; color: #FFFFFF;'>{weight_value} kgs</h1>", unsafe_allow_html=True)
+        st.markdown(f"<p style='text-align: center; color: #FFFFFF;'>Current Weight</p>", unsafe_allow_html=True)
 
         st.subheader("Height")
         height = round(bp_data['height'].iloc[-1].squeeze(), 2)
         height_value = height
 
-        st.markdown(f"<h1 style='text-align: center; color: #333333;'>{height_value} meters</h1>", unsafe_allow_html=True)
-        st.markdown(f"<p style='text-align: center; color: #555555;'>Current Weight</p>", unsafe_allow_html=True)
+        st.markdown(f"<h1 style='text-align: center; color: #FFFFFF;'>{height_value} meters</h1>", unsafe_allow_html=True)
+        st.markdown(f"<p style='text-align: center; color: #FFFFFF;'>Current Weight</p>", unsafe_allow_html=True)
 
     with col2:
         st.subheader("BMI")
