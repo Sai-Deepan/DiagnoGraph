@@ -1,4 +1,4 @@
-#Sai
+# Sai
 
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -11,29 +11,31 @@ import base64
 st.set_page_config(page_title="Medical Report Dashboard", layout="wide")
 st.title("Medical Report Dashboard")
 
+
 def get_base64_image(image_path):
     with open(image_path, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode()
     return encoded_string
 
+
 base64_image_string = get_base64_image('bg.jpg')
 
 st.markdown(
     f"""
-    <style>
-    .stApp {{
-        background-image: url("data:image/jpeg;base64,{base64_image_string}");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center center;
-    }}
+        <style>
+        .stApp {{
+            background-image: url("data:image/jpeg;base64,{base64_image_string}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+        }}
 
-    [data-testid="stSidebar"] > div:first-child {{
-        background-color: transparent;
-    }}
-    </style>
-    """,
+        [data-testid="stSidebar"] > div:first-child {{
+            background-color: transparent;
+        }}
+        </style>
+        """,
     unsafe_allow_html=True
 )
 
@@ -50,7 +52,6 @@ def load_summary_data():
     history_df = pd.read_csv("medical_history.csv")
     records_df = pd.read_csv("health_records.csv")
 
-
     for df in [details_df, history_df, records_df]:
         if 'patient_id' in df.columns:
             df['patient_id'] = df['patient_id'].astype(str).str.strip()
@@ -60,7 +61,6 @@ def load_summary_data():
 
 details_df, history_df, records_df = load_summary_data()
 bp_data = records_df[records_df['patient_id'] == patient_id]
-
 
 if 'date_recorded' in bp_data.columns:
     bp_data['date_recorded'] = pd.to_datetime(bp_data['date_recorded'], errors='coerce')
@@ -74,7 +74,8 @@ with st.container():
     with col1:
         st.subheader("Blood Pressure")
         if not bp_data.empty:
-            bp_df = bp_data[['date_recorded', 'blood_pressure_systolic', 'blood_pressure_diastolic']].set_index('date_recorded')
+            bp_df = bp_data[['date_recorded', 'blood_pressure_systolic', 'blood_pressure_diastolic']].set_index(
+                'date_recorded')
             st.line_chart(bp_df.rename(columns={
                 'blood_pressure_systolic': 'Systolic (mmHg)',
                 'blood_pressure_diastolic': 'Diastolic (mmHg)'
@@ -99,7 +100,6 @@ with st.container():
         })
         st.bar_chart(resp_data)
 
-
 st.subheader("Blood Glucose")
 if not bp_data.empty:
     glucose_df = bp_data[['date_recorded', 'blood_sugar_level']].set_index('date_recorded')
@@ -108,7 +108,6 @@ else:
     st.warning("No blood glucose data available for this patient.")
 
 st.divider()
-
 
 st.header("Vitals")
 if not bp_data.empty:
@@ -123,14 +122,13 @@ st.header("Alerts & Flags")
 
 st.divider()
 
-
 st.header("General")
 
 with st.container():
     col1, col2 = st.columns([1, 1])
     with col1:
         st.subheader("Weight")
-        weight = round(bp_data['weight'].iloc[-1].squeeze(),2)
+        weight = round(bp_data['weight'].iloc[-1].squeeze(), 2)
         weight_value = weight
 
         st.markdown(f"<h1 style='text-align: center; color: #FFFFFF;'>{weight_value} kgs</h1>", unsafe_allow_html=True)
@@ -140,7 +138,8 @@ with st.container():
         height = round(bp_data['height'].iloc[-1].squeeze(), 2)
         height_value = height
 
-        st.markdown(f"<h1 style='text-align: center; color: #FFFFFF;'>{height_value} meters</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h1 style='text-align: center; color: #FFFFFF;'>{height_value} meters</h1>",
+                    unsafe_allow_html=True)
         st.markdown(f"<p style='text-align: center; color: #FFFFFF;'>Current Weight</p>", unsafe_allow_html=True)
 
     with col2:
@@ -172,6 +171,7 @@ with st.container():
         else:
             st.error("Obese")
 
+
 def show_patient_summary(patient_id):
     details_df, history_df, records_df = load_summary_data()
 
@@ -199,7 +199,9 @@ def show_patient_summary(patient_id):
 
     with col2:
         st.subheader("Health Report")
+
         def flag(val, normal): return f"🔴 {val}" if val < normal[0] or val > normal[1] else f"🟢 {val}"
+
         st.markdown(f"Systolic BP: {flag(data['blood_pressure_systolic'].values[0], (90, 140))} mmHg")
         st.markdown(f"Diastolic BP: {flag(data['blood_pressure_diastolic'].values[0], (60, 90))} mmHg")
         st.markdown(f"Heart Rate: {flag(data['heart_rate'].values[0], (60, 100))} bpm")
@@ -220,26 +222,26 @@ def show_patient_summary(patient_id):
     else:
         st.error("🔴 High Risk")
 
-st.divider()
 
+st.divider()
 
 st.header("Medical History")
 
-st.table(history_df[history_df['patient_id'] == patient_id].drop(columns=['patient_id']).T.rename(columns={history_df.columns[1]: 'Details'}))
+st.table(history_df[history_df['patient_id'] == patient_id].drop(columns=['patient_id']).T.rename(
+    columns={history_df.columns[1]: 'Details'}))
 
 st.divider()
 
-
 st.header("Current Medications")
 
-st.table(history_df[history_df['patient_id'] == patient_id].drop(columns=['previous_medical_condition']).drop(columns=['patient_id']).T.rename(columns={history_df.columns[1]: 'Details'}))
+st.table(history_df[history_df['patient_id'] == patient_id].drop(columns=['previous_medical_condition']).drop(
+    columns=['patient_id']).T.rename(columns={history_df.columns[1]: 'Details'}))
 
 st.divider()
 
 review = st.text_area("Doctor's Review")
 if st.button("Submit Review"):
     st.success("Review submitted successfully!")
-
 
 st.divider()
 st.header("Patient Summary")
