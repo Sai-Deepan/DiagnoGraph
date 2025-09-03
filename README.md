@@ -59,6 +59,7 @@
 
 ## 🚀 Getting Started  
 
+
 ### ✅ Prerequisites  
 - Python 3.10+  
 - MySQL server installed and running  
@@ -72,3 +73,13 @@
    ```bash
    git clone https://github.com/Sai-Deepan/DiagnoGraph.git
    cd DiagnoGraph
+2.Install required Python packages:
+pip install -r requirements.txt
+
+3.Setup the database:
+python database_setup.py
+
+### ▶️ Usage
+
+
+
