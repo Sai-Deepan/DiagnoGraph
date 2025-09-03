@@ -21,10 +21,10 @@
 
 ##  Project Structure  
 
-- `app.py` – Main Streamlit application (frontend + visualization)  
-- `data_processing.py` – Standardization and preprocessing  
-- `database_setup.py` – MySQL connectivity and patient data management  
-- `plots.py` – Graph generation using Matplotlib  
+-  Main Streamlit application (frontend + visualization)  
+-  Backend(Standardization and preprocessing  )
+-  Backend( MySQL connectivity and patient data management  )
+- Graph generation using Matplotlib  
 
 ---
 
@@ -122,6 +122,7 @@ Monitoring health over time is critical. **DiagnoGraph** combines **data standar
 ## 2)Aadithya V
 ## 3)Viswasainath Vijayakumar
 ## 4)Deepak R
+
 
 
 
