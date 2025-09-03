@@ -1,3 +1,5 @@
+#Sai
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
@@ -78,10 +80,10 @@ st.divider()
 
 st.header("Vitals")
 if not bp_data.empty:
-    vitals_df = bp_data[['date_recorded', 'BMI']].set_index('date_recorded')
-    st.line_chart(vitals_df.rename(columns={'BMI': 'BMI'}))
+    hr_df = bp_data[['date_recorded', 'heart_rate']].set_index('date_recorded')
+    st.area_chart(hr_df.rename(columns={'heart_rate': 'Heart Rate (bpm)'}))
 else:
-    st.warning("No vitals data available for this patient.")
+    st.warning("No heart rate data available for this patient.")
 
 st.divider()
 
@@ -111,7 +113,7 @@ with st.container():
 
     with col2:
         st.subheader("BMI")
-        bmi_value = 22.5
+        bmi_value = round(bp_data['BMI'].iloc[-1].squeeze(), 2)
         max_bmi = 40.0
         progress_percent = int((bmi_value / max_bmi) * 100)
         progress_percent = min(100, max(0, progress_percent))
