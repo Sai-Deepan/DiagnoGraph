@@ -28,12 +28,6 @@
 
 ---
 
-##  Demo  
-
- *Add demo video link here*  
-
----
-
 ##  Project Images  
 
  *Add screenshots of:*  
@@ -122,6 +116,7 @@ Monitoring health over time is critical. **DiagnoGraph** combines **data standar
 ## 2)Aadithya V
 ## 3)Viswasainath Vijayakumar
 ## 4)Deepak R
+
 
 
 
