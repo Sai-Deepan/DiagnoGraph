@@ -9,13 +9,11 @@
 -  **Streamlit Dashboard** for interactive visualization  
 -  **Patient-specific analysis** – Enter a patient ID to view their data only  
 -  **Standardized data plots** for accurate comparisons  
--  **Graphs of 2-week health records** using Matplotlib  
 -  **Summary Report** including:  
   -  BMI (shown at the beginning and in the summary)  
-    - Values of multiple medical tests  
-  -  Final health status (Healthy / At Risk)  
-  -  Predicted disease (if detected)  
--  **MySQL integration** for storing and retrieving patient records  
+  -  Values of multiple medical tests                                         #Under Progress
+  -  Final health status (Healthy / At Risk)
+  -  Predicted disease (if detected)                                          #Under Progress
 
 ---
 
@@ -23,8 +21,7 @@
 
 -  Main Streamlit application (frontend + visualization)  
 -  Backend(Standardization and preprocessing  )
--  Backend( MySQL connectivity and patient data management  )
-- Graph generation using Matplotlib  
+-  Graph generation  
 
 ---
 
@@ -45,24 +42,16 @@
 
 ##  Tech Stack  
 
-###  Frontend (User Interaction)  
--  **Streamlit** — Interactive dashboard framework  
--  **Matplotlib** — Graph plotting within Streamlit  
-
-###  Backend (Core Logic & Database)  
+-  **Streamlit** — Interactive dashboard framework  and plotting Graphs
 -  **Python 3.10+** — Main programming language  
--  **NumPy & Pandas** — Data handling and standardization  
--  **MySQL** — Database for storing patient health data  
--  **mysql-connector-python** — Database connectivity  
-
+-  **NumPy & Pandas** — Data handling and standardization
+  
 ---
 
 ##  Getting Started  
 
-
 ###  Prerequisites  
-- Python 3.10+  
-- MySQL server installed and running  
+- Python 3.10+    
 - Required Python packages (listed in `requirements.txt`)  
 
 ---
@@ -76,16 +65,15 @@
 2.Install required Python packages:
 -pip install -r requirements.txt
 
-3.Setup the database:
--python database_setup.py
+3. Feed the CSV files
 
-###  Usage Displays 2-week graphs of different test results
+###  Usage Displays graphs of different test results
 
  Generates summary with BMI and test values
 
  Shows health status (Healthy / At Risk)
 
- Predicts potential disease if health deviates from normal
+ Predicts potential disease if health deviates from normal                    #Under progress
 
 
 1.Start the Streamlit application:
@@ -94,20 +82,8 @@ streamlit run app.py
 
 2.Enter a patient ID in the interface.
 
-##  Database Setup Instructions  
+3.Visualise the data and summarise the report
 
-DiagnoGraph uses **MySQL** to manage patient health records. Follow these steps to set it up:  
-
-### 1. Install MySQL  
-- **Windows/Mac:** Download from [MySQL Downloads](https://dev.mysql.com/downloads/installer/)  
-  ```bash
-  sudo apt update
-  sudo apt install mysql-server
-
-### 2.Create Database
-### 3.Create Table for Patient Records
-### 4.Create Python Database Connection
-### 5.Verify data
 
 ##  Why DiagnoGraph?  
 
@@ -122,16 +98,3 @@ Monitoring health over time is critical. **DiagnoGraph** combines **data standar
 ## 2)Aadithya V
 ## 3)Viswasainath Vijayakumar
 ## 4)Deepak R
-
-
-
-
-
-
-
-
-
-
-
-
-
