@@ -1,7 +1,6 @@
 # Sai
 
 import streamlit as st
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from st_circular_progress import CircularProgress
@@ -12,19 +11,18 @@ st.set_page_config(page_title="Medical Report Dashboard", layout="wide")
 st.title("Medical Report Dashboard")
 
 
+@st.cache_data
 def get_base64_image(image_path):
     with open(image_path, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode()
-    return encoded_string
+        return base64.b64encode(image_file.read()).decode()
 
-
-base64_image_string = get_base64_image('bg.jpg')
+base64_image_string = get_base64_image("bg.webp")
 
 st.markdown(
     f"""
         <style>
         .stApp {{
-            background-image: url("data:image/jpeg;base64,{base64_image_string}");
+            background-image: url("data:image/webp;base64,{base64_image_string}");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -40,22 +38,21 @@ st.markdown(
 )
 
 with st.sidebar:
-    logo = Image.open("logo.png")
+    logo = Image.open("logo.webp")
     st.image(logo, use_container_width=True)
     st.title("Patient Details")
     patient_id = st.text_input("Enter Patient ID", value="P123456")
     patient_id = patient_id.strip()
 
 
+@st.cache_data
 def load_summary_data():
     details_df = pd.read_csv("all_patients_details.csv")
     history_df = pd.read_csv("medical_history.csv")
     records_df = pd.read_csv("health_records.csv")
-
     for df in [details_df, history_df, records_df]:
         if 'patient_id' in df.columns:
             df['patient_id'] = df['patient_id'].astype(str).str.strip()
-
     return details_df, history_df, records_df
 
 
@@ -128,23 +125,23 @@ with st.container():
     col1, col2 = st.columns([1, 1])
     with col1:
         st.subheader("Weight")
-        weight = round(bp_data['weight'].iloc[-1].squeeze(), 2)
+        weight = round(bp_data['weight'].iloc[-1], 2)
         weight_value = weight
 
         st.markdown(f"<h1 style='text-align: center; color: #FFFFFF;'>{weight_value} kgs</h1>", unsafe_allow_html=True)
         st.markdown(f"<p style='text-align: center; color: #FFFFFF;'>Current Weight</p>", unsafe_allow_html=True)
 
         st.subheader("Height")
-        height = round(bp_data['height'].iloc[-1].squeeze(), 2)
+        height = round(bp_data['height'].iloc[-1], 2)
         height_value = height
 
         st.markdown(f"<h1 style='text-align: center; color: #FFFFFF;'>{height_value} meters</h1>",
                     unsafe_allow_html=True)
-        st.markdown(f"<p style='text-align: center; color: #FFFFFF;'>Current Weight</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='text-align: center; color: #FFFFFF;'>Current Height</p>", unsafe_allow_html=True)
 
     with col2:
         st.subheader("BMI")
-        bmi_value = round(bp_data['BMI'].iloc[-1].squeeze(), 2)
+        bmi_value = round(bp_data['BMI'].iloc[-1], 2)
         max_bmi = 40.0
         progress_percent = int((bmi_value / max_bmi) * 100)
         progress_percent = min(100, max(0, progress_percent))
@@ -173,7 +170,7 @@ with st.container():
 
 
 def show_patient_summary(patient_id):
-    details_df, history_df, records_df = load_summary_data()
+    global details_df, history_df, records_df
 
     info = details_df[details_df['patient_id'] == patient_id]
     history = history_df[history_df['patient_id'] == patient_id]
