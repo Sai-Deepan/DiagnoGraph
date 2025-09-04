@@ -1,7 +1,6 @@
 # Sai
 
 import streamlit as st
-import numpy as np
 import pandas as pd
 from st_circular_progress import CircularProgress
 from PIL import Image
@@ -41,7 +40,7 @@ with st.sidebar:
     logo = Image.open("logo.webp")
     st.image(logo, use_container_width=True)
     st.title("Patient Details")
-    patient_id = st.text_input("Enter Patient ID", value="P123456")
+    patient_id = st.text_input("Enter Patient ID", value="12")
     patient_id = patient_id.strip()
 
 
@@ -90,12 +89,11 @@ with st.container():
 
     with col3:
         st.subheader("Respiratory Rate")
-        np.random.seed(42)
-        resp_rate = np.random.randint(12, 25, size=15)
-        resp_data = pd.DataFrame({
-            "Respiratory Rate (breaths/min)": resp_rate
-        })
-        st.bar_chart(resp_data)
+        if not bp_data.empty:
+            resp_df = bp_data[['date_recorded', 'respiratory_rate']].set_index('date_recorded')
+            st.bar_chart(hr_df.rename(columns={'respiratory_rate': 'Respiratory Rate'}))
+        else:
+            st.warning("No breathing rate data available for this patient.")
 
 st.subheader("Blood Glucose")
 if not bp_data.empty:
@@ -141,7 +139,9 @@ with st.container():
 
     with col2:
         st.subheader("BMI")
-        bmi_value = round(bp_data['BMI'].iloc[-1], 2)
+        height = round(bp_data['height'].iloc[-1], 2)
+        weight = round(bp_data['weight'].iloc[-1], 2)
+        bmi_value =  round(weight/(height ** 2),2)
         max_bmi = 40.0
         progress_percent = int((bmi_value / max_bmi) * 100)
         progress_percent = min(100, max(0, progress_percent))
